@@ -39,7 +39,8 @@ public class DemoRoute extends RouteBuilder {
                exchange.getMessage().setBody(obj.toJSONString().getBytes());
                
             }
-        }).to("netty-http:http://52.117.213.242:8087/jpos/client?bindingMode=json");
+        }).setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
+        .to("netty-http:http://52.117.213.242:8087/jpos/client?bindingMode=json");
        
 
         from("rest://get:echoGet/{echoValue}").process(new Processor() {
